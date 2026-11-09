@@ -1,0 +1,35 @@
+# HTTPS + the service on one small server:
+#   1. cp .env.example .env   and fill in DOMAIN, ADMIN_KEY
+#   2. point your domain's DNS A record at this server
+#   3. docker compose up -d --build
+services:
+  proctor:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      TRUST_PROXY: "1"
+      PUBLIC_URL: https://${DOMAIN}
+    volumes:
+      - proctor-data:/data
+    expose:
+      - "3000"
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - proctor
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+volumes:
+  proctor-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Proctor dashboard</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <section id="login" class="card hidden" style="max-width:420px;margin:60px auto">
+    <h1>Proctor dashboard</h1>
+    <p class="muted">Sign in with your tenant API key.</p>
+    <label class="field"><span>API key</span><input type="password" id="key" placeholder="pk_…" autocomplete="off"></label>
+    <div id="login-error" class="msg err hidden"></div>
+    <button class="btn primary" id="btn-login">Sign in</button>
+  </section>
+
+  <section id="app" class="hidden">
+    <div class="row spread">
+      <h1 id="tenant-name">Dashboard</h1>
+      <button class="btn small" id="btn-logout">Sign out</button>
+    </div>
+    <div class="tabs" id="tabs">
+      <button data-tab="attempts" class="active">Attempts</button>
+      <button data-tab="tests">Tests</button>
+      <button data-tab="invites">Invites</button>
+      <button data-tab="settings" data-full="1">Settings</button>
+      <button data-tab="audit" data-full="1">Audit log</button>
+    </div>
+    <div id="tab-attempts"></div>
+    <div id="tab-tests" class="hidden"></div>
+    <div id="tab-invites" class="hidden"></div>
+    <div id="tab-settings" class="hidden"></div>
+    <div id="tab-audit" class="hidden"></div>
+    <div id="detail"></div>
+  </section>
+</main>
+<script src="/admin.js"></script>
+</body>
+</html>

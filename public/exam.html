@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Proctored exam</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <section id="screen-loading" class="card center"><p class="muted">Loading…</p></section>
+
+  <section id="screen-error" class="card center hidden">
+    <h1>Unable to open this exam</h1>
+    <p id="error-msg" class="muted"></p>
+  </section>
+
+  <section id="screen-intro" class="card hidden">
+    <h1 id="intro-title"></h1>
+    <p class="muted" id="intro-meta"></p>
+    <p id="intro-instructions" class="prompt"></p>
+    <h2>Before you begin</h2>
+    <ul class="rules" id="intro-rules"></ul>
+    <div id="cam-block" class="hidden">
+      <button class="btn" id="btn-camera">Enable camera</button>
+      <span class="muted" id="cam-status"></span>
+    </div>
+    <label class="row" style="margin:16px 0;align-items:flex-start">
+      <input type="checkbox" id="consent" style="margin-top:5px">
+      <span>I understand this exam is proctored. I consent to the recording of camera snapshots and activity events (such as leaving this tab or fullscreen) for the purpose of exam integrity review.</span>
+    </label>
+    <div id="intro-error" class="msg err hidden"></div>
+    <button class="btn primary" id="btn-start" disabled>Start exam</button>
+  </section>
+
+  <section id="screen-exam" class="hidden">
+    <div class="topbar">
+      <strong id="exam-title"></strong>
+      <span class="savestate" id="savestate"></span>
+      <span class="timer" id="timer">--:--</span>
+    </div>
+    <div class="nav" id="nav"></div>
+    <div class="card" id="question-card"></div>
+    <div class="row spread">
+      <div class="row">
+        <button class="btn" id="btn-prev">Previous</button>
+        <button class="btn" id="btn-next">Next</button>
+      </div>
+      <button class="btn primary" id="btn-submit">Submit exam</button>
+    </div>
+  </section>
+
+  <section id="screen-done" class="card center hidden">
+    <h1>Exam submitted</h1>
+    <p class="muted" id="done-msg"></p>
+    <p id="done-result" class="hidden"></p>
+    <a id="done-link" class="btn primary hidden" href="#">Return to site</a>
+  </section>
+</main>
+
+<div id="overlay" class="overlay hidden">
+  <div class="card center">
+    <h2 id="overlay-title"></h2>
+    <p id="overlay-msg" class="muted"></p>
+    <div class="row" style="justify-content:center">
+      <button class="btn primary" id="overlay-btn"></button>
+      <button class="btn hidden" id="overlay-btn2"></button>
+    </div>
+  </div>
+</div>
+
+<video id="cam" class="cam hidden" autoplay muted playsinline></video>
+<script src="/exam.js"></script>
+</body>
+</html>

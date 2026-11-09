@@ -1,0 +1,25 @@
+# Bare-metal alternative to Docker (Ubuntu/Debian):
+#   sudo useradd --system --home /opt/proctor proctor
+#   sudo cp -r . /opt/proctor && sudo mkdir -p /var/lib/proctor && sudo chown -R proctor /var/lib/proctor
+#   sudo cp deploy/proctor.service /etc/systemd/system/ && sudo nano /etc/proctor.env
+#   sudo systemctl enable --now proctor
+# Put Caddy or nginx in front for HTTPS (see docs/DEPLOY.md).
+[Unit]
+Description=Proctor service
+After=network.target
+
+[Service]
+User=proctor
+WorkingDirectory=/opt/proctor
+EnvironmentFile=/etc/proctor.env
+Environment=NODE_ENV=production DATA_DIR=/var/lib/proctor HOST=127.0.0.1 TRUST_PROXY=1
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/proctor
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

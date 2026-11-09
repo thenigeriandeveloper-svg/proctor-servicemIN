@@ -1,0 +1,10 @@
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy proctor:3000 {
+		# Caddy sets X-Forwarded-For, which the service reads when TRUST_PROXY=1
+		header_up X-Forwarded-For {remote_host}
+	}
+	request_body {
+		max_size 6MB
+	}
+}
